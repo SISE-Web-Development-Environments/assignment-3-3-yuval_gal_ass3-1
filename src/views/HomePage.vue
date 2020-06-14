@@ -1,16 +1,19 @@
 <template>
   <div class="home-main-view">
     <div class="column left-side">
+      <h1>Some of our Recipes</h1>
       <PreviewRecipe :recipe="loadedRecipesArray[currentIndex]" :lastRecipe="back" :nextRecipe="next" :key="currentIndex"/>
     </div>
     <div class="column right-side">
-      <h1>Right</h1>
+<!--      <h1>Right</h1>-->
+      <LoginComp/>
     </div>
   </div>
 </template>
 
 <script>
 import PreviewRecipe from '@/components/PreviewRecipe'
+import LoginComp from '@/components/Login'
 import axios from 'axios'
 
 async function getRecipesData () {
@@ -82,13 +85,27 @@ export default {
     }
   },
   components: {
-    PreviewRecipe
+    PreviewRecipe,
+    LoginComp
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  @import url(https://fonts.googleapis.com/css2?family=Kalam&display=swap);
+  h1 {
+    margin-left: -40%;
+    margin-top: -8%;
+    font-weight: 600;
+    display:inline-block;
+    font-family: 'Kalam', sans-serif !important;
+    /*margin: 40px 8px 10px 8px;*/
+    /*<!--margin: -5% 0 0;-->*/
+    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(170,75,37,0.9472163865546218) 20%, rgba(170,75,37,1) 50%, rgba(170,75,37,0.9556197478991597) 74%, rgba(255,0,0,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
   h3 {
     margin: 40px 0 0;
   }

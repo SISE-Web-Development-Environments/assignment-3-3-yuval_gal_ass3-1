@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <b-card
       :title="recipe.title"
       :img-src="recipe.image_url"
@@ -7,7 +7,7 @@
       img-top
       tag="article"
       style="max-width: 20rem;"
-      class="mb-2"
+      class="mb-2 preview"
     >
       <a @click="lastRecipe" class="previous round arrows-btns">&#8249;</a>
       <b-card-text>
@@ -36,7 +36,9 @@ export default {
 </script>
 
 <style scoped>
-
+.preview {
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+}
 .arrows-btns {
   text-decoration: none;
   display: inline-block;
@@ -48,6 +50,7 @@ export default {
 .arrows-btns:hover {
   background-color: #979696;
   color: black;
+  cursor: pointer;
 }
 
 .previous {

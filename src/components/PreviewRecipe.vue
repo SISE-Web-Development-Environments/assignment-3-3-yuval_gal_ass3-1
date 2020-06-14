@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-card
-      :title="recipe.title  "
+      :title="recipe.title"
       :img-src="recipe.image_url"
       img-alt="Image"
       img-top

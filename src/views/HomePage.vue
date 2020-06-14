@@ -1,7 +1,7 @@
 <template>
   <div class="home-main-view">
     <div class="column left-side">
-      <PreviewRecipe :recipe="getRandomRecipes[currentIndex]" :lastRecipe="back" :nextRecipe="next" :key="currentIndex"/>
+      <PreviewRecipe :recipe="loadedRecipesArray[currentIndex]" :lastRecipe="back" :nextRecipe="next" :key="currentIndex"/>
     </div>
     <div class="column right-side">
       <h1>Right</h1>
@@ -22,7 +22,9 @@ async function getRecipesData () {
   let recipeId
   const recipesArray = []
   for (recipeId in randomIds) {
-    await fetch('http://localhost/recipes/preview/recId/' + randomIds[recipeId])
+    await fetch('http://localhost/recipes/preview/recId/' + randomIds[recipeId], {
+      method: 'GET'
+    })
       .then(response => {
         console.log(response)
         return response.json()
@@ -32,7 +34,10 @@ async function getRecipesData () {
         recipesArray.push(jsonData)
       })
   }
-  return recipesArray
+  return {
+    recipesArray: recipesArray,
+    length: recipesArray.length
+  }
 }
 
 export default {
@@ -42,7 +47,9 @@ export default {
   },
   data () {
     return {
-      currentIndex: 0
+      currentIndex: 0,
+      arrayLength: 0,
+      loadedRecipesArray: []
     }
   },
   // computed: {
@@ -53,12 +60,14 @@ export default {
   asyncComputed: {
     async getRandomRecipes () {
       // return [1, 2, 3]
-      return await getRecipesData()
+      const { recipesArray, length } = await getRecipesData()
+      this.arrayLength = length
+      this.loadedRecipesArray = recipesArray
     }
   },
   methods: {
     next () {
-      if (this.currentIndex + 1 <= this.getRandomRecipes.length - 1) {
+      if (this.currentIndex + 1 <= this.arrayLength - 1) {
         this.currentIndex++
       } else {
         this.currentIndex = 0
@@ -68,7 +77,7 @@ export default {
       if (this.currentIndex - 1 >= 0) {
         this.currentIndex--
       } else {
-        this.currentIndex = this.getRandomRecipes.length - 1
+        this.currentIndex = this.arrayLength - 1
       }
     }
   },

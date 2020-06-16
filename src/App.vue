@@ -2,10 +2,13 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
-      <router-link to="/shtut">About</router-link>
+      <router-link to="/login">Login</router-link> |
+      <router-link to="/about">About</router-link>
     </div>
     <b-container>
-      <router-view/>
+      <transition name="slide" mode="out-in">
+        <router-view/>
+      </transition>
     </b-container>
   </div>
 </template>
@@ -34,5 +37,18 @@
       color: #42b983;
     }
   }
+}
+
+.slide-enter-active{
+  transition: opacity 0.5s, transform 0.5s;
+}
+.slide-leave-active{
+  transition: opacity 1s, transform 1s;
+}
+
+.slide-enter,
+.slide-leave-to{
+  opacity: 3%;
+  transform: translateX(-30%);
 }
 </style>

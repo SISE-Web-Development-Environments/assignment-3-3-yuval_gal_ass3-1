@@ -29,33 +29,13 @@
 </template>
 
 <script>
-// import PreviewRecipe from '@/components/PreviewRecipe'
 import LoginComp from '@/components/Login'
 import { Carousel, Slide } from 'vue-carousel'
 import axios from 'axios'
 import PreviewRecipe from '../components/PreviewRecipe'
+import loginScript from '../generic/login'
 
-async function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
-async function postData (url = '', data = {}) {
-  console.log(data)
-  const response = await fetch (url, {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    body: JSON.stringify (data)
-  });
-  console.log(response)
-  return response.json ();
-}
 
 async function getRecipesData () {
   let randomIds
@@ -116,15 +96,15 @@ export default {
   methods: {
     async login(username, password) {
       this.isFailedLogin = false;
-      console.log('Login')
-      const success = await postData('http://localhost/user/Login', {username: username, password: password})
-      console.log(success)
-      if (success.success) {
+      let {status, message} = await loginScript.login(username,password);
+      if(status === 'success')
+      {
         this.isLoggedin = true;
-        this.isFailedLogin = false;
-      } else {
-        this.failMessage = success.message;
+      }
+      else
+      {
         this.isFailedLogin = true;
+        this.failMessage = message;
       }
     }
   },

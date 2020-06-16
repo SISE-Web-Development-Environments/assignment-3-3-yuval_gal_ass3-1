@@ -61,7 +61,13 @@
       "arrow-parens": "off",
       "space-before-function-paren": "off",
       "no-multiple-empty-lines": "off",
-      "key-spacing": "off"
+      "key-spacing": "off",
+      "indent": "off",
+      "prefer-const": "off",
+      "brace-style": "off",
+      "space-before-blocks": "off",
+      "keyword-spacing": "off",
+      "comma-spacing": "off"
     }
   },
   "browserslist": [

@@ -8,13 +8,15 @@
         <img src="../assets/ourLogo.png" id="icon" alt="User Icon" />
         <h1>Welcome</h1>
       </div>
-
+      <transition
+        name="slide-fade"
+      >
+        <p class="errored-login-message" v-if="isFailedLogin">{{failMessage}}</p>
+      </transition>
       <!-- Login Form -->
-      <form>
-        <input type="text" id="login" class="fadeIn second" name="login" placeholder="username">
-        <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
-        <input type="submit" class="fadeIn fourth" value="Log In">
-      </form>
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" v-model="username">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" v-model="password">
+      <button class="fadeIn fourth" v-on:click="login(username, password)">Log In</button>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
@@ -25,6 +27,28 @@
   </div>
 </template>
 
+
+<script>
+
+
+export default {
+  props: {
+    login: Function,
+    isLoggedin: Boolean,
+    failMessage: String,
+    isFailedLogin: Boolean
+  },
+  data () {
+    return {
+      username: '',
+      password: '',
+      fadeInDuration: 500,
+      fadeOutDuration: 500
+    }
+  }
+
+}
+</script>
 <style scoped>
 html {
   background-color: #56baed;
@@ -32,6 +56,37 @@ html {
 body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
+}
+.errored-login-message{
+  color: red;
+}
+
+.slide-fade-enter-active {
+  /*transition: all .3s ease;*/
+  animation: shake 0.5s;
+}
+.slide-fade-leave-active {
+  /*transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);*/
+  animation: shake 0.5s;
+}
+.slide-fade-enter, .slide-fade-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
 a {
@@ -99,7 +154,7 @@ h2.active {
 
 /* FORM TYPOGRAPHY*/
 
-input[type=button], input[type=submit], input[type=reset]  {
+input[type=button], button, input[type=reset]  {
   background-color: #56baed;
   border: none;
   color: white;
@@ -121,11 +176,11 @@ input[type=button], input[type=submit], input[type=reset]  {
   transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+input[type=button]:hover, button:hover, input[type=reset]:hover  {
   background-color: #39ace7;
 }
 
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+input[type=button]:active, button:active, input[type=reset]:active  {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);

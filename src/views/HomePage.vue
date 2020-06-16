@@ -18,7 +18,12 @@
       </carousel>
     </div>
     <div class="column right-side">
-      <LoginComp/>
+      <LoginComp
+        :login="login"
+        :isLoggedIn="isLoggedin"
+        :failMessage="failMessage"
+        :isFailedLogin="isFailedLogin"
+      />
     </div>
   </div>
 </template>
@@ -29,6 +34,28 @@ import LoginComp from '@/components/Login'
 import { Carousel, Slide } from 'vue-carousel'
 import axios from 'axios'
 import PreviewRecipe from '../components/PreviewRecipe'
+
+async function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function postData (url = '', data = {}) {
+  console.log(data)
+  const response = await fetch (url, {
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+    body: JSON.stringify (data)
+  });
+  console.log(response)
+  return response.json ();
+}
 
 async function getRecipesData () {
   let randomIds
@@ -67,7 +94,10 @@ export default {
       currentIndex: 0,
       arrayLength: 0,
       loadedRecipesArray: [],
-      color: '#8c8caa'
+      color: '#8c8caa',
+      isLoggedin: false,
+      isFailedLogin: false,
+      failMessage: ''
     }
   },
   // computed: {
@@ -84,18 +114,17 @@ export default {
     }
   },
   methods: {
-    next () {
-      if (this.currentIndex + 1 <= this.arrayLength - 1) {
-        this.currentIndex++
+    async login(username, password) {
+      this.isFailedLogin = false;
+      console.log('Login')
+      const success = await postData('http://localhost/user/Login', {username: username, password: password})
+      console.log(success)
+      if (success.success) {
+        this.isLoggedin = true;
+        this.isFailedLogin = false;
       } else {
-        this.currentIndex = 0
-      }
-    },
-    back () {
-      if (this.currentIndex - 1 >= 0) {
-        this.currentIndex--
-      } else {
-        this.currentIndex = this.arrayLength - 1
+        this.failMessage = success.message;
+        this.isFailedLogin = true;
       }
     }
   },

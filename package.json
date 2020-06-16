@@ -48,7 +48,21 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "off",
+      "func-call-spacing": "off",
+      "no-extra-semi": "off",
+      "semi": "off",
+      "object-curly-spacing": "off",
+      "object-curly-newline": "off",
+      "quotes": "off",
+      "no-multi-spaces": "off",
+      "arrow-spacing": "off",
+      "arrow-parens": "off",
+      "space-before-function-paren": "off",
+      "no-multiple-empty-lines": "off",
+      "key-spacing": "off"
+    }
   },
   "browserslist": [
     "> 1%",

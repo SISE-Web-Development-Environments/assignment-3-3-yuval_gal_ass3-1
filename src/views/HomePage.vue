@@ -151,7 +151,7 @@ export default {
   }
 
   .slide{
-    transform: translateX(20px) translateY(20px);
+    transform: translateX(20px);
   }
   .caruosel{
     width: 360px;

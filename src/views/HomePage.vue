@@ -2,7 +2,11 @@
   <div class="home-main-view">
     <div class="column left-side">
       <h1>Some of our Recipes</h1>
-      <PreviewRecipe :recipe="loadedRecipesArray[currentIndex]" :lastRecipe="back" :nextRecipe="next" :key="currentIndex"/>
+      <carousel class="caruosel" :autoplay="true" :paginationColor="color" :navigationEnabled="true" :autoplayHoverPause="true" :perPage=1>
+        <slide class="slide" v-for="recipe in loadedRecipesArray" :key="recipe.index">
+          <PreviewRecipe :recipe="recipe"></PreviewRecipe>
+        </slide>
+      </carousel>
     </div>
     <div class="column right-side">
 <!--      <h1>Right</h1>-->
@@ -12,9 +16,11 @@
 </template>
 
 <script>
-import PreviewRecipe from '@/components/PreviewRecipe'
+// import PreviewRecipe from '@/components/PreviewRecipe'
 import LoginComp from '@/components/Login'
+import { Carousel, Slide } from 'vue-carousel'
 import axios from 'axios'
+import PreviewRecipe from '../components/PreviewRecipe'
 
 async function getRecipesData () {
   let randomIds
@@ -52,7 +58,8 @@ export default {
     return {
       currentIndex: 0,
       arrayLength: 0,
-      loadedRecipesArray: []
+      loadedRecipesArray: [],
+      color: '#8c8caa'
     }
   },
   // computed: {
@@ -86,7 +93,10 @@ export default {
   },
   components: {
     PreviewRecipe,
-    LoginComp
+    // PreviewRecipe,
+    LoginComp,
+    Carousel,
+    Slide
   }
 }
 </script>
@@ -95,7 +105,7 @@ export default {
 <style scoped lang="scss">
   @import url(https://fonts.googleapis.com/css2?family=Kalam&display=swap);
   h1 {
-    margin-left: -40%;
+    margin-left: -36%;
     margin-top: -8%;
     font-weight: 600;
     display:inline-block;
@@ -131,12 +141,19 @@ export default {
     display: table;
     clear: both;
   }
-  .left-side {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
+  /*.left-side {*/
+  /*  text-align: center;*/
+  /*  justify-content: center;*/
+  /*  align-items: center;*/
+  /*}*/
   .right-side{
     text-align: right;
+  }
+
+  .slide{
+    transform: translateX(20px) translateY(20px);
+  }
+  .caruosel{
+    width: 375px;
   }
 </style>

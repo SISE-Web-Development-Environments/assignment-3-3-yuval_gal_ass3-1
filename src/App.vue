@@ -12,7 +12,7 @@
 
 <style lang="scss">
   html {
-    background-color: #9dd8ff;
+    background-image: url("../src/assets/marble-background.jpg");
   }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -20,7 +20,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #9dd8ff;
+  background-image: url("../src/assets/marble-background.jpg");
 }
 
 #nav {

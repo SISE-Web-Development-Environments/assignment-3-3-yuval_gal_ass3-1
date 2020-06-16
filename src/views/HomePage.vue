@@ -2,7 +2,7 @@
   <div class="home-main-view">
     <div class="column left-side">
       <h1>Some of our Recipes</h1>
-      <carousel class="caruosel" :autoplay="true" :paginationColor="color" :navigationEnabled="true" :autoplayHoverPause="true" :perPage=1>
+      <carousel class="caruosel" :loop="true" :autoplay="true" :paginationColor="color" :navigationEnabled="true" :autoplayHoverPause="true" :perPage=1>
         <slide class="slide" v-for="recipe in loadedRecipesArray" :key="recipe.index">
           <PreviewRecipe :recipe="recipe"></PreviewRecipe>
         </slide>
@@ -154,6 +154,6 @@ export default {
     transform: translateX(20px) translateY(20px);
   }
   .caruosel{
-    width: 375px;
+    width: 360px;
   }
 </style>

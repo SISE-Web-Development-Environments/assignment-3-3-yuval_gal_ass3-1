@@ -2,14 +2,22 @@
   <div class="home-main-view">
     <div class="column left-side">
       <h1>Some of our Recipes</h1>
-      <carousel class="caruosel" :loop="true" :autoplay="true" :paginationColor="color" :navigationEnabled="true" :autoplayHoverPause="true" :perPage=1>
+      <carousel class="caruosel"
+                :loop="true"
+                :autoplay="true"
+                :paginationColor="color"
+                :navigationEnabled="true"
+                :autoplayHoverPause="true"
+                :perPage=1
+                :autoplayTimeout=5000
+                :speed=3000
+      >
         <slide class="slide" v-for="recipe in loadedRecipesArray" :key="recipe.index">
           <PreviewRecipe :recipe="recipe"></PreviewRecipe>
         </slide>
       </carousel>
     </div>
     <div class="column right-side">
-<!--      <h1>Right</h1>-->
       <LoginComp/>
     </div>
   </div>

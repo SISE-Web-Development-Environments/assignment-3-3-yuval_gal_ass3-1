@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import HomePage from '../views/HomePage.vue'
+import LoginPage from '../views/LoginPage.vue'
 import Shtut from '../views/About.vue'
 import NotFound from '../views/NotFoundPage.vue'
 
@@ -13,9 +14,19 @@ const routes = [
     component: HomePage
   },
   {
-    path: '/shtut',
+    path: '/about',
     name: 'About',
     component: Shtut
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginPage
+  },
+  {
+    path: '*',
+    name: 'default',
+    component: HomePage
   },
   {
     path: '/recipe/:recipeId',

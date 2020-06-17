@@ -1,17 +1,41 @@
 <template>
   <div class="home-main-view">
     <div class="column left-side">
-      <PreviewRecipe :recipe="loadedRecipesArray[currentIndex]" :lastRecipe="back" :nextRecipe="next" :key="currentIndex"/>
+      <h1>Some of our Recipes</h1>
+      <carousel class="caruosel"
+                :loop="true"
+                :autoplay="true"
+                :paginationColor="color"
+                :navigationEnabled="true"
+                :autoplayHoverPause="true"
+                :perPage=1
+                :autoplayTimeout=5000
+                :speed=3000
+      >
+        <slide class="slide" v-for="recipe in loadedRecipesArray" :key="recipe.index">
+          <PreviewRecipe :recipe="recipe"></PreviewRecipe>
+        </slide>
+      </carousel>
     </div>
     <div class="column right-side">
-      <h1>Right</h1>
+      <LoginComp
+        :login="login"
+        :isLoggedIn="isLoggedin"
+        :failMessage="failMessage"
+        :isFailedLogin="isFailedLogin"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import PreviewRecipe from '@/components/PreviewRecipe'
+import LoginComp from '@/components/Login'
+import { Carousel, Slide } from 'vue-carousel'
 import axios from 'axios'
+import PreviewRecipe from '../components/PreviewRecipe'
+import loginScript from '../generic/login'
+
+
 
 async function getRecipesData () {
   let randomIds
@@ -49,7 +73,11 @@ export default {
     return {
       currentIndex: 0,
       arrayLength: 0,
-      loadedRecipesArray: []
+      loadedRecipesArray: [],
+      color: '#8c8caa',
+      isLoggedin: false,
+      isFailedLogin: false,
+      failMessage: ''
     }
   },
   // computed: {
@@ -66,29 +94,45 @@ export default {
     }
   },
   methods: {
-    next () {
-      if (this.currentIndex + 1 <= this.arrayLength - 1) {
-        this.currentIndex++
-      } else {
-        this.currentIndex = 0
+    async login(username, password) {
+      this.isFailedLogin = false;
+      let {status, message} = await loginScript.login(username,password);
+      if(status === 'success')
+      {
+        this.isLoggedin = true;
       }
-    },
-    back () {
-      if (this.currentIndex - 1 >= 0) {
-        this.currentIndex--
-      } else {
-        this.currentIndex = this.arrayLength - 1
+      else
+      {
+        this.isFailedLogin = true;
+        this.failMessage = message;
       }
     }
   },
   components: {
-    PreviewRecipe
+    PreviewRecipe,
+    // PreviewRecipe,
+    LoginComp,
+    Carousel,
+    Slide
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
+  @import url(https://fonts.googleapis.com/css2?family=Kalam&display=swap);
+  h1 {
+    margin-left: -36%;
+    margin-top: -8%;
+    font-weight: 600;
+    display:inline-block;
+    font-family: 'Kalam', sans-serif !important;
+    /*margin: 40px 8px 10px 8px;*/
+    /*<!--margin: -5% 0 0;-->*/
+    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(170,75,37,0.9472163865546218) 20%, rgba(170,75,37,1) 50%, rgba(170,75,37,0.9556197478991597) 74%, rgba(255,0,0,1) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
   h3 {
     margin: 40px 0 0;
   }
@@ -114,12 +158,19 @@ export default {
     display: table;
     clear: both;
   }
-  .left-side {
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-  }
+  /*.left-side {*/
+  /*  text-align: center;*/
+  /*  justify-content: center;*/
+  /*  align-items: center;*/
+  /*}*/
   .right-side{
     text-align: right;
+  }
+
+  .slide{
+    transform: translateX(20px);
+  }
+  .caruosel{
+    width: 360px;
   }
 </style>

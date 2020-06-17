@@ -13,6 +13,7 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-async-computed": "^3.8.2",
+    "vue-carousel": "^0.18.0",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0"
   },
@@ -47,7 +48,27 @@
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "off",
+      "func-call-spacing": "off",
+      "no-extra-semi": "off",
+      "semi": "off",
+      "object-curly-spacing": "off",
+      "object-curly-newline": "off",
+      "quotes": "off",
+      "no-multi-spaces": "off",
+      "arrow-spacing": "off",
+      "arrow-parens": "off",
+      "space-before-function-paren": "off",
+      "no-multiple-empty-lines": "off",
+      "key-spacing": "off",
+      "indent": "off",
+      "prefer-const": "off",
+      "brace-style": "off",
+      "space-before-blocks": "off",
+      "keyword-spacing": "off",
+      "comma-spacing": "off"
+    }
   },
   "browserslist": [
     "> 1%",

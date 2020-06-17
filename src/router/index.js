@@ -3,7 +3,6 @@ import VueRouter from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 import LoginPage from '../views/LoginPage.vue'
 import Shtut from '../views/About.vue'
-import NotFound from '../views/NotFoundPage.vue'
 
 Vue.use(VueRouter)
 
@@ -32,11 +31,6 @@ const routes = [
     path: '/recipe/:recipeId',
     name: 'recipe',
     component: () => import('../views/RecipePage.vue')
-  },
-  {
-    path: '*',
-    name: 'notFound',
-    component: NotFound
   }
 ]
 

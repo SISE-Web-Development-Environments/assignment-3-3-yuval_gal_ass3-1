@@ -1,5 +1,10 @@
 <template>
+
   <div >
+    <router-link
+      :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
+      class="recipe-preview"
+    >
     <b-card
       :title="recipe.title"
       :img-src="recipe.image_url"
@@ -19,6 +24,7 @@
 
       <b-button :href="recipe.url" variant="primary">See the full Recipe</b-button>
     </b-card>
+    </router-link>
   </div>
 </template>
 

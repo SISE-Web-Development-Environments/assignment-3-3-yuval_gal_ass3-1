@@ -14,8 +14,8 @@
         <p class="errored-login-message" v-if="isFailedLogin">{{failMessage}}</p>
       </transition>
       <!-- Login Form -->
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" v-model="username">
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" v-model="password">
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" v-model="username" required>
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" v-model="password" required>
       <button class="fadeIn fourth" v-on:click="login(username, password)">Log In</button>
 
       <!-- Remind Passowrd -->

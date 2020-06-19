@@ -14,14 +14,13 @@
         <p class="errored-login-message" v-if="isFailedLogin">{{failMessage}}</p>
       </transition>
       <!-- Login Form -->
-      <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" v-model="username" required>
-      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" v-model="password" required>
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" v-model="username">
+      <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" v-model="password">
       <button class="fadeIn fourth" v-on:click="login(username, password)">Log In</button>
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
-        <router-link to="/register">Sign Up
-        </router-link>
+        <a class="underlineHover" href="#">Sign Up</a>
       </div>
 
     </div>

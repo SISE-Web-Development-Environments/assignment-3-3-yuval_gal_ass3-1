@@ -35,8 +35,6 @@ import axios from 'axios'
 import PreviewRecipe from '../components/PreviewRecipe'
 import loginScript from '../generic/login'
 
-
-
 async function getRecipesData () {
   let randomIds
   await axios

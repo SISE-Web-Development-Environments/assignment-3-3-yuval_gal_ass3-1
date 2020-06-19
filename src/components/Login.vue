@@ -20,7 +20,8 @@
 
       <!-- Remind Passowrd -->
       <div id="formFooter">
-        <a class="underlineHover" href="#">Sign Up</a>
+        <router-link to="/register">Sign Up
+        </router-link>
       </div>
 
     </div>

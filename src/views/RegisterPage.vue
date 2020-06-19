@@ -165,6 +165,9 @@
           type="text"
           :state="validateState('profile')"
         ></b-form-input>
+        <b-form-invalid-feedback v-if="!$v.form.profile.required">
+          Profile picture is required
+        </b-form-invalid-feedback>
         <b-form-invalid-feedback v-if="!$v.form.profile.url">
           Please insert valid url
         </b-form-invalid-feedback>
@@ -243,7 +246,7 @@
         },
         firstName: {
           required,
-          alpha,
+          alpha
         },
         email: {
           required,
@@ -254,7 +257,8 @@
           alpha
         },
         profile: {
-          url
+          url,
+          required
         },
         password: {
           required,

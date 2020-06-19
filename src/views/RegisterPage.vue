@@ -100,15 +100,14 @@
         <b-form-invalid-feedback v-if="!$v.form.password.required">
           Password is required
         </b-form-invalid-feedback>
+        <b-form-invalid-feedback
+          v-if="$v.form.password.required && !$v.form.password.length && !$v.form.password.oneNumber && !$v.form.password.oneChar"
+        >Have length between 5-10 characters long, At least one number is required, At least one special char is required
+        </b-form-invalid-feedback>
         <b-form-text v-else-if="$v.form.password.$error" text-variant="info">
           Your password should be <strong>strong</strong>. <br />
-          For that, your password should be also:
         </b-form-text>
-        <b-form-invalid-feedback
-          v-if="$v.form.password.required && !$v.form.password.length"
-        >
-          Have length between 5-10 characters long
-        </b-form-invalid-feedback>
+
       </b-form-group>
 
       <b-form-group
@@ -195,10 +194,6 @@
     >
       Register failed: {{ form.submitError }}
     </b-alert>
-    <!-- <b-card class="mt-3 md-3" header="Form Data Result">
-      <pre class="m-0"><strong>form:</strong> {{ form }}</pre>
-      <pre class="m-0"><strong>$v.form:</strong> {{ $v.form }}</pre>
-    </b-card> -->
   </div>
 </template>
 
@@ -262,7 +257,9 @@
         },
         password: {
           required,
-          length: (p) => minLength(5)(p) && maxLength(10)(p)
+          length: (p) => minLength(5)(p) && maxLength(10)(p),
+          oneChar: (u) => !u.match(/^[A-Z,a-z,0-9]*$/),
+          oneNumber: (u) => !(u.search(/\d/) === -1)
         },
         confirmedPassword: {
           required,

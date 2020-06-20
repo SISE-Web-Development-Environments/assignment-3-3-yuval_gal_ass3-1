@@ -67,7 +67,8 @@
       "brace-style": "off",
       "space-before-blocks": "off",
       "keyword-spacing": "off",
-      "comma-spacing": "off"
+      "comma-spacing": "off",
+      "padded-blocks": "off"
     }
   },
   "browserslist": [

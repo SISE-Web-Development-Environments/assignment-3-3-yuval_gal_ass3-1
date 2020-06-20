@@ -18,9 +18,8 @@
       </carousel>
     </div>
     <div class="column right-side">
-      <LoginComp
+      <LoginComp v-if="!isLoggedin()"
         :login="login"
-        :isLoggedIn="isLoggedin"
         :failMessage="failMessage"
         :isFailedLogin="isFailedLogin"
       />
@@ -31,10 +30,10 @@
 <script>
 import LoginComp from '@/components/Login'
 import { Carousel, Slide } from 'vue-carousel'
-import axios from 'axios'
 import PreviewRecipe from '../components/PreviewRecipe'
 import loginScript from '../generic/login'
-
+import axios from 'axios'
+axios.defaults.withCredentials = true;
 
 
 async function getRecipesData () {
@@ -75,7 +74,7 @@ export default {
       arrayLength: 0,
       loadedRecipesArray: [],
       color: '#8c8caa',
-      isLoggedin: false,
+      // isLoggedin: false,
       isFailedLogin: false,
       failMessage: ''
     }
@@ -97,6 +96,7 @@ export default {
     async login(username, password) {
       this.isFailedLogin = false;
       let {status, message} = await loginScript.login(username,password);
+      console.log({status, message})
       if(status === 'success')
       {
         this.isLoggedin = true;
@@ -105,6 +105,23 @@ export default {
       {
         this.isFailedLogin = true;
         this.failMessage = message;
+      }
+    },
+
+    isLoggedin()
+    {
+      try {
+
+        const cookie = window.$cookie.get('app_session');
+        console.log("cookie=" + cookie);
+        if (cookie) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      catch (e) {
+        return false;
       }
     }
   },

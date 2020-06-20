@@ -1,17 +1,19 @@
+import axios from 'axios'
+axios.defaults.withCredentials = true;
+
+
 async function postData (url = '', data = {}) {
-  const response = await fetch (url, {
-    method: 'POST',
-    mode: 'cors',
-    cache: 'no-cache',
-    credentials: 'same-origin',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-    body: JSON.stringify (data)
-  });
-  return response.json ();
+  console.log("DATA=" + JSON.stringify(data));
+  try {
+    const response = await axios.post(url, data)
+    console.log("response=" + response);
+    return response.data;
+  }
+  catch (error) {
+    console.log(error);
+    return {status: 401, message: "Username or Password incorrect"}
+  }
+
 }
 
 async function login(username, password) {

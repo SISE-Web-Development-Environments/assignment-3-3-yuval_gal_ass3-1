@@ -34,6 +34,11 @@ const routes = [
     component: HomePage
   },
   {
+    path: '/search',
+    name: 'search',
+    component: () => import('../views/SearchPage.vue')
+  },
+  {
     path: '/recipe/:recipeId',
     name: 'recipe',
     component: () => import('../views/RecipePage.vue')

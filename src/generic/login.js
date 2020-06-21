@@ -1,7 +1,6 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 
-
 async function postData (url = '', data = {}) {
   console.log("DATA=" + JSON.stringify(data));
   try {
@@ -10,8 +9,8 @@ async function postData (url = '', data = {}) {
     return response.data;
   }
   catch (error) {
-    console.log(error);
-    return {status: 401, message: "Username or Password incorrect"}
+    console.log(error.response);
+    return {status: 401, message: error.response.data.message}
   }
 
 }

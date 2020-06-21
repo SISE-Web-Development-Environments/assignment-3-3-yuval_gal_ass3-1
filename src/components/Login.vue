@@ -16,7 +16,7 @@
       <!-- Login Form -->
       <input type="text" id="login" class="fadeIn second" name="login" placeholder="username" v-model="username">
       <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" v-model="password">
-      <button class="fadeIn fourth" v-on:click="login(username, password)">Log In</button>
+      <button class="fadeIn fourth" v-on:click="LoginUser">Log In</button>
       <!-- Remind Passowrd -->
       <div id="formFooter">
         <a class="underlineHover" href="#">Sign Up</a>
@@ -42,6 +42,13 @@
         password: '',
         fadeInDuration: 500,
         fadeOutDuration: 500
+      }
+    },
+    methods: {
+      LoginUser(){
+        this.login(this.username, this.password);
+        this.username = '';
+        this.password = '';
       }
     }
 

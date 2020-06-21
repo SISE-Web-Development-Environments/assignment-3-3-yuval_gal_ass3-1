@@ -32,13 +32,12 @@ import LoginComp from '@/components/Login'
 import { Carousel, Slide } from 'vue-carousel'
 import PreviewRecipe from '../components/PreviewRecipe'
 import loginScript from '../generic/login'
-import axios from 'axios'
-axios.defaults.withCredentials = true;
 
 
-async function getRecipesData () {
+
+async function getRecipesData (axiosToUse) {
   let randomIds
-  await axios
+  await axiosToUse
     .get('http://localhost/recipes/get_random_recipe_id?numberToRetrieve=3')
     .then(response => (randomIds = response.data))
     .then(response => console.log('The random IDs from axios: ' + response))
@@ -87,7 +86,7 @@ export default {
   asyncComputed: {
     async getRandomRecipes () {
       // return [1, 2, 3]
-      const { recipesArray, length } = await getRecipesData()
+      const { recipesArray, length } = await getRecipesData(this.axios)
       this.arrayLength = length
       this.loadedRecipesArray = recipesArray
     }
@@ -112,7 +111,7 @@ export default {
     {
       try {
 
-        const cookie = window.$cookie.get('app_session');
+        const cookie = this.$root.cookie.get('app_session');
         console.log("cookie=" + cookie);
         if (cookie) {
           return true;
